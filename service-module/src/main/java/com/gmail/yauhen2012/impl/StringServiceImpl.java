@@ -1,5 +1,7 @@
 package com.gmail.yauhen2012.impl;
 
+import java.util.stream.Stream;
+
 import com.gmail.yauhen2012.StringService;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +15,12 @@ public class StringServiceImpl implements StringService {
                 .replaceAll("[ ]{2,}", " ");
         String[] strArray = str.split(" ");
 
-        int lineSum = 0;
-        for (String s : strArray) {
-            if (!s.equals("")) {
-                lineSum += Integer.parseInt(s);
-            }
-        }
-        return lineSum;
+        return Stream.of(strArray)
+                .filter(line -> !line.isEmpty())
+                .map(Integer::parseInt)
+                .reduce(Integer::sum)
+                .orElse(0);
+
     }
 
 }

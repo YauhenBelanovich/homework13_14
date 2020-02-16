@@ -4,7 +4,7 @@ import java.io.File;
 import java.lang.invoke.MethodHandles;
 
 import com.gmail.yauhen2012.config.AppConfig;
-import com.gmail.yauhen2012.util.PropertyUtil;
+import com.gmail.yauhen2012.config.Property;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -20,10 +20,10 @@ public class App {
         ctx.refresh();
 
         SumService sumService = ctx.getBean(SumService.class);
-        PropertyUtil propertyUtil = ctx.getBean(PropertyUtil.class);
-        File file = new File(propertyUtil.getFileLocation());
+        Property property = ctx.getBean(Property.class);
+        File file = new File(property.getFileLocation());
 
-        logger.info(sumService.sumAllStrings(file));
+        logger.info(sumService.sumAllNumbers(file));
 
     }
 
